@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>tus-js-client demo</title>
+</head>
+
+<body>
+  <form>
+    <input type="file" id="FILE" multiple><br>
+  </form>
+
+  <!-- <script src="/demo/index.js"></script> -->
+
+  <script>
+    var fileInput = document.getElementById("FILE");
+
+    var fileList = [];
+
+    fileInput.addEventListener("change", function(e) {
+      fileList = [];
+      for (var i = 0; i < fileInput.files.length; i++) {
+        fileList.push(fileInput.files[i])
+      }
+      for (var i = 0; i < fileList.length; i++) {
+        SendFile(fileList[i]);
+      }
+    });
+
+
+
+
+    function SendFile(file) {
+      // Get the selected file from the input element
+
+      var fileSent = file;
+
+      var options = {
+        endpoint: "http://localhost:8000/weave/up",
+        resume: false,
+        chunkSize: 10,
+        retryDelays: [0, 1000, 3000, 5000],
+        metadata: {
+          filename: fileSent.name,
+          filetype: fileSent.type
+        },
+        onSuccess: function() {
+          console.log("Download %s from %s", upload.fileSent.name, upload.url);
+        },
+        onError: function(e) {
+          console.log("Error: ", e);
+        },
+        onProgress: function(bytesUploaded, bytesTotal) {
+          var percentage = (bytesUploaded / bytesTotal * 100).toFixed(2);
+          console.log(bytesUploaded, bytesTotal, percentage + "%");
+        }
+
+      }
+
+      upload = new tus.Upload(fileSent, options);
+
+      upload.start();
+
+    }
+  </script>
+
+  <script src="/node_modules/tus-js-client/dist/tus.js"></script>
+  <script src="/jquery-1.12.0.min.js"></script>
+</html>

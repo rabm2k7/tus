@@ -35,7 +35,7 @@ switch (data_store) {
  * @param  {object} res http.ServerResponse
  */
 const writeFile = (req, res) => {
-    const filename = req.url === '/' ? 'demo/index.html' : req.url;
+    const filename = req.url === '/' ? 'demo/upload.html' : req.url;
     const filepath = path.join(process.cwd(), filename);
     fs.readFile(filepath, 'binary', (err, file) => {
         if (err) {
@@ -53,7 +53,7 @@ const writeFile = (req, res) => {
 
 // Define routes to serve the demo html/js files.
 server.get('/', writeFile);
-server.get('/demo/index.js', writeFile);
+server.get('demo/jquery-1.12.0.min.js', writeFile);
 server.get('/node_modules/tus-js-client/dist/tus.js', writeFile);
 
 server.on(EVENTS.EVENT_UPLOAD_COMPLETE, (event) => {
