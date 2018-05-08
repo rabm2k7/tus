@@ -3,10 +3,10 @@
 const path = require('path');
 const fs = require('fs');
 
-const Server = require('../index').Server;
-const FileStore = require('../index').FileStore;
-const GCSDataStore = require('../index').GCSDataStore;
-const EVENTS = require('../index').EVENTS;
+const Server = require('../lib/includes').Server;
+const FileStore = require('../lib/includes').FileStore;
+const GCSDataStore = require('../lib/includes').GCSDataStore;
+const EVENTS = require('../lib/includes').EVENTS;
 
 const server = new Server();
 

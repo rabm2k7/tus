@@ -1,0 +1,2 @@
+#!/bin/bash
+tools/npm-install crypto-rand debug configstore @google-cloud/storage object-assign
